@@ -5,6 +5,7 @@ import (
     "net/http"
     "time"
 	"github.com/gin-gonic/gin"
+	"os"
 )
 
 var (
@@ -12,6 +13,8 @@ var (
 )
 
 func main() {
+	port := os.Getenv("PORT")
+
 	r := gin.Default()
 	r.Static("/assets", "./statics")
 	r.LoadHTMLGlob("templates/*")
@@ -29,7 +32,7 @@ func main() {
 		})
 	})
 
-	r.Run(":8080")
+	r.Run(":" + port)
 }
 
 func formatAsDate(t time.Time) string {
